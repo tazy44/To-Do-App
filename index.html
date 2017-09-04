@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>TO Do Project</title>
+
+    <!-- CSS & Fonts -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">      
+  </head>
+  <body>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-3"></div>
+			<div class="col-xs-6">
+					
+				<h6>ADD ITEM</h6>
+				<form class="form-inline">
+					<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="addInput" placeholder="Eg. Buy new batteries for the watch">
+					<button type="submit" class="btn btn-primary" id="addButton">Add</button>
+				</form>
+					
+				<h6>TO DO</h6>
+				<label class="form-check-label">
+					<input class="form-check-input" type="checkbox"> Pay bills
+				</label>
+				<button type="submit" class="btn btn-primary" id="editButton">Edit</button>
+				<button type="submit" class="btn btn-primary" id="deleteButton">Delete</button>
+					
+				<form class="form-inline">
+					<input class="form-check-input" type="checkbox">
+					<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="editInput" value="Go shopping">
+					<button type="submit" class="btn btn-primary" id="editButton">Edit</button>
+					<button type="submit" class="btn btn-primary" id="deleteButton">Delete</button>
+				</form>
+				
+				<h6>COMPLETED</h6>
+				<label class="form-check-label completed">
+					<input class="form-check-input" type="checkbox" checked="checked"> See the doctor
+				</label>
+				<button type="submit" class="btn btn-primary" id="editButton">Edit</button>
+				<button type="submit" class="btn btn-primary" id="deleteButton">Delete</button>
+					
+			</div>
+			<div class="col-xs-3"></div>
+		</div>
+	</div>
+    <!-- Tether & Bootstrap -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+      
+  </body>
+</html>

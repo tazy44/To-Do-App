@@ -1,0 +1,56 @@
+.row {
+    margin-top: 70px;
+}
+#addInput {
+    width: 76%;
+}
+
+#editInput {
+    width: 50%;
+	margin-right: 7%;
+}
+
+label {
+		width: 60%;
+}
+
+label.completed {
+		text-decoration: line-through;
+}
+
+#addButton {
+    width: 6%;
+    background-color: inherit;
+    color: #000;
+    border: none;
+    margin: 0 0 0 10%;
+    padding: 0;
+}
+
+#editButton {
+    width: 7%;
+    background-color: inherit;
+    color: #000;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+#deleteButton {
+    width: 9%;
+    background-color: inherit;
+    color: #000;
+    border: none;
+    margin: 0 0 0 18%;
+    padding: 0;
+}
+
+h6 {
+    border-bottom: 2px solid #000;
+    padding-bottom: 7px;
+    margin: 42px 0px 21px;
+    font-weight: bold;
+}
+
+
+
