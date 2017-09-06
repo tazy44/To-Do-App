@@ -11,7 +11,8 @@
 }
 
 label {
-		width: 60%;
+	width: 60%;
+	margin: 8px 0;
 }
 
 label.completed {
@@ -27,7 +28,7 @@ label.completed {
     padding: 0;
 }
 
-#editButton {
+.editButton {
     width: 7%;
     background-color: inherit;
     color: #000;
@@ -36,7 +37,7 @@ label.completed {
     padding: 0;
 }
 
-#deleteButton {
+.deleteButton {
     width: 9%;
     background-color: inherit;
     color: #000;
