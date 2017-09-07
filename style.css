@@ -5,8 +5,8 @@
     width: 76%;
 }
 
-#editInput {
-    width: 50%;
+.editInput {
+  width: 50% !important;
 	margin-right: 7%;
 }
 
