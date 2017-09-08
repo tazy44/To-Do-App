@@ -41,10 +41,11 @@ addButton.onclick = function () {
 		newDeleteButton.className = 'btn deleteButton';
 		newDeleteButton.innerHTML = 'Delete';
 		
-		theCol.insertBefore(newLabel, h6List[2]);
+		insertAfter(newLabel, h6List[1]);
 		insertAfter(newEditButton, newLabel);
 		insertAfter(newDeleteButton, newEditButton);
 		newEditButton.onclick = toggleEdit;
+		newLabel.firstChild.onclick = toggleCompletion;
 	}
 };
 	
@@ -54,7 +55,9 @@ function toggleEdit () {
 		var next = this.nextElementSibling;
 		if (prev.className === 'form-check-label' || prev.className === 'form-check-label completed') {
 			
-			var editText = prev.innerHTML.slice(49);
+			var editText = prev.innerHTML;
+			
+			editText = prev.className==='form-check-label completed' ? editText.slice(67) : editText.slice(49);
 			
 			var editBar = document.createElement('INPUT');
 			editBar.type = 'text';
@@ -84,6 +87,7 @@ function toggleEdit () {
 			prev.parentNode.removeChild(prev);
 			next.parentNode.removeChild(next);
 			this.parentNode.removeChild(this);
+			
 			//Attaching the event handlers to the new elements
 			newEditButton.onclick = toggleEdit;
 			
@@ -109,10 +113,12 @@ function toggleEdit () {
 			insertAfter(newEditButton, newLabel);
 			insertAfter(newDeleteButton, newEditButton);
 			this.parentNode.parentNode.removeChild(this.parentNode); //Removing the entire form
+			
 			//Attaching the event handlers to the new elements
 			newEditButton.onclick = toggleEdit;
+			newLabel.firstChild.onclick = toggleCompletion;
 			
-		}
+		}	
 	}
 
 for (var i = 0; i < editButtons.length; i++) {
@@ -122,18 +128,13 @@ for (var i = 0; i < editButtons.length; i++) {
 }
 
 function toggleCompletion () {
-	if (this.checked) { //Mark task as complete
+	
 		var oldLabel = this.parentNode;
-		var completedItem = oldLabel.innerHTML.slice(49);;
+		var item = oldLabel.innerHTML;
 		oldLabel.nextElementSibling.parentNode.removeChild(oldLabel.nextElementSibling);
 		oldLabel.nextElementSibling.parentNode.removeChild(oldLabel.nextElementSibling);
 		oldLabel.parentNode.removeChild(oldLabel);
-		
-		var newLabel = document.createElement('LABEL');
-		newLabel.setAttribute('style', 'width: 60.8%;');
-		newLabel.innerHTML = '<input class="form-check-input" type="checkbox" checked="checked"> ' + completedItem;
-		newLabel.className = 'form-check-label completed';
-
+	
 		var newEditButton = document.createElement('BUTTON');
 		newEditButton.type = 'button';
 		newEditButton.className = 'btn editButton';
@@ -144,16 +145,36 @@ function toggleCompletion () {
 		newDeleteButton.type = 'button';
 		newDeleteButton.className = 'btn deleteButton';
 		newDeleteButton.innerHTML = 'Delete';
+	
+	if (this.checked) { //Mark task as complete
+		
+		item = item.slice(49);
+		
+		var newLabel = document.createElement('LABEL');
+		newLabel.setAttribute('style', 'width: 60.8%;');
+		newLabel.innerHTML = '<input class="form-check-input" type="checkbox" checked="checked"> ' + item;
+		newLabel.className = 'form-check-label completed';
 
 		insertAfter(newLabel, h6List[2]);
+		
+	} else {//Mark task as incomplete
+		
+		item = item.slice(67);
+		
+		var newLabel = document.createElement('LABEL');
+		newLabel.setAttribute('style', 'width: 60.8%;');
+		newLabel.innerHTML = '<input class="form-check-input" type="checkbox"> ' + item;
+		newLabel.className = 'form-check-label';
+		
+		insertAfter(newLabel, h6List[1]);
+		
+	}
+		
 		insertAfter(newEditButton, newLabel);
 		insertAfter(newDeleteButton, newEditButton);
 		//Attaching the event handlers to the new elements
-		newLabel.firstChild.onclick = toggleCompletion();
+		newLabel.firstChild.onclick = toggleCompletion;
 		newEditButton.onclick = toggleEdit;
-	} else {//Mark task as incomplete
-		
-	}
 }
 
 for (var i = 0; i < checkboxes.length; i++) {
