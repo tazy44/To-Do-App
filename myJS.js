@@ -4,8 +4,9 @@ var addButton = document.getElementById('addButton');
 var editButtons = document.getElementsByClassName('editButton');
 var checkboxes = document.getElementsByClassName('form-check-input');
 var deleteButtons = document.getElementsByClassName('deleteButton');
+var addInput = document.getElementById('addInput');
 
-function insertAfter(newElement, targetElement) {
+function insertAfter (newElement, targetElement) {
 	"use strict";
 	// target is what you want it to go after. Look for this elements parent.
 	var parent = targetElement.parentNode;
@@ -20,27 +21,46 @@ function insertAfter(newElement, targetElement) {
 	}
 }
 
+function addNewLabel (labelText, that) {
+	var newLabel = document.createElement('LABEL');
+	newLabel.setAttribute('style', 'width: 60.8%;');
+	if (that.parentElement.previousElementSibling === h6List[2] || that.checked) {
+		//The second condition in the if statement enables the toggleCompletion function to work properly
+		newLabel.innerHTML = '<input class="form-check-input" type="checkbox" checked="checked"> ' + labelText;
+		newLabel.className = 'form-check-label completed';
+	} else {
+		newLabel.innerHTML = '<input class="form-check-input" type="checkbox"> ' + labelText;
+		newLabel.className = 'form-check-label';
+	}
+	return newLabel;
+}
+
+function addNewEditButton () {
+	var newEditButton = document.createElement('BUTTON');
+	newEditButton.type = 'button';
+	newEditButton.className = 'btn editButton';
+	newEditButton.innerHTML = 'Edit';
+	return newEditButton;
+}
+
+function addNewDeleteButton () {
+	var newDeleteButton = document.createElement('BUTTON');
+	newDeleteButton.setAttribute('style', 'margin: 0 0 0 19%;');
+	newDeleteButton.type = 'button';
+	newDeleteButton.className = 'btn deleteButton';
+	newDeleteButton.innerHTML = 'Delete';
+	return newDeleteButton;
+}
+
 //Add a new task
-addButton.onclick = function () {
+function addNewItem () {
 	"use strict";
-	var addInputText = document.getElementById('addInput').value;
+	var addInputText = addInput.value;
 	if (addInputText !== "") {
 		
-		var newLabel = document.createElement('LABEL');
-		newLabel.setAttribute('style', 'width: 60.8%;');
-		newLabel.innerHTML = '<input class="form-check-input" type="checkbox"> ' + addInputText;
-		newLabel.className = 'form-check-label';
-		
-		var newEditButton = document.createElement('BUTTON');
-		newEditButton.type = 'button';
-		newEditButton.className = 'btn editButton';
-		newEditButton.innerHTML = 'Edit';
-		
-		var newDeleteButton = document.createElement('BUTTON');
-		newDeleteButton.setAttribute('style', 'margin: 0 0 0 19%;');
-		newDeleteButton.type = 'button';
-		newDeleteButton.className = 'btn deleteButton';
-		newDeleteButton.innerHTML = 'Delete';
+		var newLabel = addNewLabel(addInputText, this);	
+		var newEditButton = addNewEditButton();
+		var newDeleteButton = addNewDeleteButton();
 		
 		insertAfter(newLabel, h6List[1]);
 		insertAfter(newEditButton, newLabel);
@@ -69,11 +89,9 @@ function toggleEdit () {
 			editBar.value = editText;
 			editBar.style.marginLeft = '5%';
 			
-			var newEditButton = document.createElement('BUTTON');
-			newEditButton.type = 'button';
-			newEditButton.className = 'btn editButton';
-			newEditButton.innerHTML = 'Edit';
-			newEditButton.textContent = 'Done editing';
+			var newEditButton = addNewEditButton();
+			//The next line overwrites the default innerHTML property set in addNewEditButton function
+			newEditButton.innerHTML = 'Done editing';
 			
 			var editForm = document.createElement('FORM');
 			editForm.className = 'form-inline';
@@ -91,26 +109,9 @@ function toggleEdit () {
 			
 		} else {
 			
-			var newLabel = document.createElement('LABEL');
-			newLabel.setAttribute('style', 'width: 60.8%;');
-			if (this.parentElement.previousElementSibling === h6List[2]) {
-				newLabel.innerHTML = '<input class="form-check-input" type="checkbox" checked="checked"> ' + prev.value;
-				newLabel.className = 'form-check-label completed';
-			} else {
-				newLabel.innerHTML = '<input class="form-check-input" type="checkbox"> ' + prev.value;
-				newLabel.className = 'form-check-label';
-			}
-
-			var newEditButton = document.createElement('BUTTON');
-			newEditButton.type = 'button';
-			newEditButton.className = 'btn editButton';
-			newEditButton.innerHTML = 'Edit';
-
-			var newDeleteButton = document.createElement('BUTTON');
-			newDeleteButton.setAttribute('style', 'margin: 0 0 0 19%;');
-			newDeleteButton.type = 'button';
-			newDeleteButton.className = 'btn deleteButton';
-			newDeleteButton.innerHTML = 'Delete';
+			var newLabel = addNewLabel(prev.value, this);
+			var newEditButton = addNewEditButton();
+			var newDeleteButton = addNewDeleteButton();
 			
 			theCol.insertBefore(newLabel, this.parentNode);
 			insertAfter(newEditButton, newLabel);
@@ -125,12 +126,7 @@ function toggleEdit () {
 		}	
 	}
 
-for (var i = 0; i < editButtons.length; i++) {
-	//Adding () to the function would make an instant call causing the 'this' keyword to be undefined
-	//Another way around this is to save the function in a variable & assign the variable to the onclick event
-	editButtons[i].onclick = toggleEdit;
-}
-
+//Check & uncheck a task
 function toggleCompletion () {
 	
 		var oldLabel = this.parentNode;
@@ -138,38 +134,19 @@ function toggleCompletion () {
 		oldLabel.nextElementSibling.parentNode.removeChild(oldLabel.nextElementSibling);
 		oldLabel.nextElementSibling.parentNode.removeChild(oldLabel.nextElementSibling);
 		oldLabel.parentNode.removeChild(oldLabel);
-	
-		var newEditButton = document.createElement('BUTTON');
-		newEditButton.type = 'button';
-		newEditButton.className = 'btn editButton';
-		newEditButton.innerHTML = 'Edit';
-
-		var newDeleteButton = document.createElement('BUTTON');
-		newDeleteButton.setAttribute('style', 'margin: 0 0 0 19%;');
-		newDeleteButton.type = 'button';
-		newDeleteButton.className = 'btn deleteButton';
-		newDeleteButton.innerHTML = 'Delete';
+		var newEditButton = addNewEditButton();
+		var newDeleteButton = addNewDeleteButton();
 	
 	if (this.checked) { //Mark task as complete
 		
 		item = item.slice(49);
-		
-		var newLabel = document.createElement('LABEL');
-		newLabel.setAttribute('style', 'width: 60.8%;');
-		newLabel.innerHTML = '<input class="form-check-input" type="checkbox" checked="checked"> ' + item;
-		newLabel.className = 'form-check-label completed';
-
+		var newLabel = addNewLabel(item, this);
 		insertAfter(newLabel, h6List[2]);
 		
 	} else {//Mark task as incomplete
 		
 		item = item.slice(67);
-		
-		var newLabel = document.createElement('LABEL');
-		newLabel.setAttribute('style', 'width: 60.8%;');
-		newLabel.innerHTML = '<input class="form-check-input" type="checkbox"> ' + item;
-		newLabel.className = 'form-check-label';
-		
+		var newLabel = addNewLabel(item, this);
 		insertAfter(newLabel, h6List[1]);
 		
 	}
@@ -183,10 +160,6 @@ function toggleCompletion () {
 		newDeleteButton.onclick = deleteItem;
 }
 
-for (var i = 0; i < checkboxes.length; i++) {
-	checkboxes[i].onclick = toggleCompletion;
-}
-
 //Delete a task
 function deleteItem () {
 	this.previousElementSibling.parentNode.removeChild(this.previousElementSibling);
@@ -194,6 +167,18 @@ function deleteItem () {
 	this.parentNode.removeChild(this);
 }
 
+addButton.onclick = addNewItem;
+
+for (var i = 0; i < editButtons.length; i++) {
+	//Adding () to the function would make an instant call causing the 'this' keyword to be undefined
+	//Another way around this is to save the function in a variable & assign the variable to the onclick event
+	editButtons[i].onclick = toggleEdit;
+}
+
 for (var i = 0; i < deleteButtons.length; i++) {
 	deleteButtons[i].onclick = deleteItem;
+}
+
+for (var i = 0; i < checkboxes.length; i++) {
+	checkboxes[i].onclick = toggleCompletion;
 }
